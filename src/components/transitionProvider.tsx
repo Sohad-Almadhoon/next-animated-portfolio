@@ -26,7 +26,7 @@ const TransitionProvider = ({ children }:{children : ReactNode}) => {
           animate={{ opacity: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}>
-          {pathName.substring(1)}
+          {pathName.slice(1)}
         </motion.div>
         <motion.div
           className="h-screen w-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"

@@ -40,14 +40,17 @@ const AboutPage = () => {
             <h1 className="font-bold text-2xl">BIOGRAPHY</h1>
             {/* BIOGRAPHY DESC */}
             <p className="text-lg">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              harum quibusdam cupiditate nobis accusamus sed aut aperiam,
-              reiciendis numquam! Voluptas voluptatibus obcaecati dolore itaque
-              suscipit! Vel doloremque numquam quam nihil.
+              As an expert MERN stack developer, I can help transform your ideas
+              into outstanding web applications with clean and efficient code. I
+              believe that simplicity drives both performance and clarity. I am
+              a dedicated professional with a proven ability to thrive in
+              self-starting environments and collaborate effectively with other
+              developers. My passion for web development and personal growth
+              fuels my commitment to delivering high-quality work.
             </p>
             {/* BIOGRAPHY QUOTE */}
             <span className="italic">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+             Simplicity is the soul of efficiency.
             </span>
 
             {/* BIOGRAPHY SCROLL SVG */}

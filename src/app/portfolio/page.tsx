@@ -9,34 +9,34 @@ const items = [
   {
     id: 1,
     color: "from-red-300 to-blue-300",
-    title: "React Meals",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab id ad nesciunt quo aut corporis modi? Voluptate, quos sunt dolorum facilis, id eum sequi placeat accusantium saepe eos laborum.",
-    img: "/portfolio/meals.png",
-    link: "",
+    title: "Tik tik",
+    desc: "Tiktik is a high-performance TikTok clone built with Next.js, TypeScript, and TailwindCSS, featuring Google authentication and state management with Zustand. It handles video data with Axios and real-time content using Sanity.io, optimized for speed and scalability.",
+    img: "/portfolio/1.png",
+    link: "https://tiktik-clone-vxan.vercel.app/",
   },
   {
     id: 2,
     color: "from-blue-300 to-violet-300",
-    title: "Cars Renting App",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab id ad nesciunt quo aut corporis modi? Voluptate, quos sunt dolorum facilis, id eum sequi placeat accusantium saepe eos laborum.",
-    img: "/portfolio/cars.png",
-    link: "",
+    title: "Promptopia",
+    desc: "Promptopia is an AI-powered platform where users create and share ready-made prompt cards for various AI applications. It promotes collaboration by offering searchable prompts for developers, writers, and creatives. With a simple interface, Promptopia streamlines workflows and enhances productivity.",
+    img: "/portfolio/3.png",
+    link: "https://promptopia-k93z.onrender.com/",
   },
   {
     id: 3,
     color: "from-violet-300 to-purple-300",
-    title: "Trillo App",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab id ad nesciunt quo aut corporis modi? Voluptate, quos sunt dolorum facilis, id eum sequi placeat accusantium saepe eos laborum.",
-    img: "/portfolio/trillo.png",
-    link: "",
+    title: "Carepulse",
+    desc: "CarePulse is an innovative healthcare clinic providing accessible medical services through a user-friendly platform. Patients can easily book appointments, while staff manage requests via a streamlined dashboard for a seamless experience.",
+    img: "/portfolio/7.png",
+    link: "https://carepulse-q36eux08s-sohadalmadhoons-projects.vercel.app/",
   },
   {
     id: 4,
     color: "from-purple-300 to-red-300",
-    title: "Nexter App",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab id ad nesciunt quo aut corporis modi? Voluptate, quos sunt dolorum facilis, id eum sequi placeat accusantium saepe eos laborum.",
-    img: "/portfolio/nexter.png",
-    link: "",
+    title: "Proshop",
+    desc: `Proshop is an e-commerce platform built with Express.js, Mongoose, and MongoDB, offering secure authentication with JWT and password hashing with Bcryptjs. The front end uses React, React-Redux, and React-Bootstrap for a dynamic interface, while PayPal integration ensures seamless payment processing.`,
+    img: "/portfolio/6.png",
+    link: "https://proshop-s6ok.onrender.com/",
   },
 ];
 
@@ -63,18 +63,18 @@ const PortfolioPage = () => {
               <div
                 className={`h-screen w-screen flex p-12 items-center justify-center bg-gradient-to-r ${item.color}`}
                 key={item.id}>
-                <div className="flex flex-col gap-8 text-white p-12 m-4">
-                  <h1 className="text-xl font-bold md:text-4xl lg:text-6xl ">
+                <div className="flex flex-col gap-2 text-slate-600 p-12 m-4">
+                  <h1 className="text-xl font-bold md:text-4xl lg:text-4xl ">
                     {item.title}
                   </h1>
-                  <div className="relative w-80 h-56 md:w-96 md:h-64 lg:w-[500px] lg:h-[350px] xl:w-[600px] xl:h-[420px]">
+                  <div className="relative w-80 h-52 md:w-96 md:h-64 lg:w-[500px] lg:h-[350px] xl:w-[600px] xl:h-[420px]">
                     <Image src={item.img} alt="" fill />
                   </div>
                   <p className="w-full md:w-96 lg:w-[500px] lg:text-lg xl:w-[600px]">
                     {item.desc}
                   </p>
                   <Link href={item.link} className="flex justify-end">
-                    <button className="p-2 text-sm md:p-4 md:text-md lg:px-8 lg:text-lg bg-white text-gray-600 font-semibold m-4 rounded">
+                    <button className="p-2 text-sm md:p-4 md:text-md lg:px-4 lg:text-lg bg-white text-gray-600 font-semibold m-4 rounded">
                       See Demo
                     </button>
                   </Link>

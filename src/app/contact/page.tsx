@@ -22,7 +22,7 @@ const ContactPage = () => {
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  delay: index * 0.1,
+                  delay: index * 0.1, 
                 }}>
                 {letter}
               </motion.span>
