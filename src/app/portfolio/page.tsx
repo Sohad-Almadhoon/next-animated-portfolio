@@ -6,13 +6,21 @@ import Link from "next/link";
 import { useRef } from "react";
 
 const items = [
+  // {
+  //   id: 1,
+  //   color: "from-green-400 to-blue-500",
+  //   title: "Spotify",
+  //   desc: `Spotify clone allows users to sign in via email or GitHub, stream and upload music, and manage subscriptions with Stripe, including cancellations. Users can search, like tracks, and explore others' music. Built with Supabase for the backend, PostgreSQL for the database, and Next.js as the framework, the project leverages TypeScript and Tailwind CSS for seamless development and styling.`,
+  //   img: "/portfolio/4.png",
+  //   link: "https://spotify-clone-rho-lake.vercel.app/",
+  // },
   {
     id: 1,
-    color: "from-green-400 to-blue-500",
-    title: "Spotify",
-    desc: `Spotify clone allows users to sign in via email or GitHub, stream and upload music, and manage subscriptions with Stripe, including cancellations. Users can search, like tracks, and explore others' music. Built with Supabase for the backend, PostgreSQL for the database, and Next.js as the framework, the project leverages TypeScript and Tailwind CSS for seamless development and styling.`,
-    img: "/portfolio/4.png",
-    link: "https://spotify-clone-rho-lake.vercel.app/",
+    color: "from-indigo-400 to-purple-600",
+    title: "Car4Sales",
+    desc: "Developed the backend for a Car Marketplace App using Agile practices. Features include secure login with OTP reset, seller profiles with listings, images, ratings, and sales charts. Buyers can search by location, view car details, place orders, pay via Stripe, and contact sellers via WhatsApp. The backend ensures high performance, data security, and scalability. Integrated third-party services for payments, messaging, and authentication to deliver a seamless user experience.",
+    img: "/portfolio/8.png",
+    link: "https://github.com/Sohad-Almadhoon/backend_grad",
   },
   {
     id: 2,
@@ -31,20 +39,36 @@ const items = [
     link: "https://fiverr-client-1.vercel.app/",
   },
   {
-    id: 4,
+    id: 3,
     color: "from-purple-400 to-indigo-500",
     title: "Carepulse",
     desc: "CarePulse is an innovative healthcare clinic providing accessible medical services through a user-friendly platform. Patients can easily book appointments, while staff manage requests via a streamlined dashboard for a seamless experience.",
     img: "/portfolio/7.png",
     link: "https://carepulse-q36eux08s-sohadalmadhoons-projects.vercel.app/",
   },
+  // {
+  //   id: 4,
+  //   color: "from-teal-400 to-blue-500",
+  //   title: "Tiktik (Tiktok clone)",
+  //   desc: "Tiktik is a high-performance web application similar to TikTok, built with Next.js, TypeScript, and TailwindCSS. It features secure Google authentication through react-oauth/google, state management with Zustand, and efficient data handling using Axios, with Sanity.io as the backend for real-time content management.",
+  //   img: "/portfolio/1.png",
+  //   link: "https://expo.dev/accounts/sohadmadhoon/projects/naitve/builds/7c89f40a-7765-4401-b87e-8539dc2ede6d",
+  // },
+  // {
+  //   id: 9,
+  //   color: "from-emerald-400 to-cyan-500",
+  //   title: "🎧 Podcast Website with AI & Next.js 15",
+  //   desc: "I designed and developed a podcast website using Next.js 15 and Supabase. The platform features AI-generated podcasts with audio and images based on user descriptions, Google Sign-In, and an intuitive search filter.",
+  //   img: "/portfolio/9.png",
+  //   link: "#",
+  // },
   {
-    id: 5,
-    color: "from-teal-400 to-blue-500",
-    title: "Tiktik (Tiktok clone)",
-    desc: "Tiktik is a high-performance web application similar to TikTok, built with Next.js, TypeScript, and TailwindCSS. It features secure Google authentication through react-oauth/google, state management with Zustand, and efficient data handling using Axios, with Sanity.io as the backend for real-time content management.",
-    img: "/portfolio/1.png",
-    link: "https://expo.dev/accounts/sohadmadhoon/projects/naitve/builds/7c89f40a-7765-4401-b87e-8539dc2ede6d",
+    id: 10,
+    color: "from-amber-400 to-orange-600",
+    title: "📚 Book Platform",
+    desc: "A platform where users can create, follow, and explore books, engage in discussions, and share content for a simple $5 access fee.",
+    img: "/portfolio/10.png",
+    link: "https://bookshop-frontend-gold.vercel.app/",
   },
 ];
 
