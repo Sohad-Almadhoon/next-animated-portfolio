@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# screenshot originals — the site only ever serves the .webp next to each one
+# (see readShots in src/lib/portfolio.ts). ~130 MB of source exports that would
+# otherwise sit in history forever. Kept on disk, out of the repo.
+/public/portfolio/**/*.png
+/public/portfolio/**/*.jpg
+/public/portfolio/**/*.jpeg

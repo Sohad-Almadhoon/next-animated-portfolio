@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "images": "node scripts/optimize-images.mjs",
+    "images:clean": "node scripts/clean-originals.mjs"
   },
   "dependencies": {
     "emailjs-com": "^3.2.0",
@@ -14,6 +16,7 @@
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "sharp": "^0.35.4",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

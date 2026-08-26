@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import "./global.css";
 import TransitionProvider from "@/components/transitionProvider";
+import { getCvHref } from "@/lib/cv";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <TransitionProvider>{children}</TransitionProvider>
+        <TransitionProvider cvHref={getCvHref()}>{children}</TransitionProvider>
       </body>
     </html>
   );
