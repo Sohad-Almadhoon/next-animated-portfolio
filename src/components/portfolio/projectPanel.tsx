@@ -31,6 +31,46 @@ const Chevron = ({ dir }: { dir: "left" | "right" }) => (
   </svg>
 );
 
+const MonitorIcon = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+    <rect
+      x="2.5"
+      y="4"
+      width="19"
+      height="13"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    />
+    <path
+      d="M9 20h6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const PhoneIcon = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+    <rect
+      x="6"
+      y="2.5"
+      width="12"
+      height="19"
+      rx="2.5"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    />
+    <path
+      d="M10.5 18.5h3"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 const ProjectPanel = ({
@@ -99,6 +139,7 @@ const ProjectPanel = ({
     setSlide((s) => (s + delta + shots.length) % shots.length);
   };
 
+  const firstMobile = shots.findIndex((s) => s.platform === "mobile");
   const num = pad(index + 1);
 
   return (
@@ -145,6 +186,25 @@ const ProjectPanel = ({
           <p className="line-clamp-3 max-w-lg text-[13px] leading-relaxed text-white/55 sm:text-sm md:line-clamp-none md:text-[15px]">
             {tagline}
           </p>
+
+          {/* Says outright that this one ships on two surfaces, and jumps
+              straight into the app screens. */}
+          {firstMobile !== -1 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="flex items-center gap-1.5 rounded-full bg-white/[0.06] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/70 ring-1 ring-white/10">
+                <MonitorIcon className="h-3.5 w-3.5" />
+                Web
+              </span>
+              <button
+                type="button"
+                onClick={() => onOpen(firstMobile)}
+                className="flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[#0b0b0e] transition hover:brightness-110"
+                style={{ backgroundColor: accent }}>
+                <PhoneIcon className="h-3.5 w-3.5" />
+                Mobile app &middot; {shots.length - firstMobile} screens
+              </button>
+            </div>
+          )}
 
           <ul className="flex flex-wrap gap-1.5">
             {stack.map((tech) => (

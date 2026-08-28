@@ -14,14 +14,19 @@ export type Project = {
   code?: string;
   /** File inside the project folder that opens the slider (defaults to the first). */
   coverShot?: string;
+  /** First screenshot number that shows the mobile app; earlier ones are web. */
+  mobileFrom?: number;
   /** Used only when public/portfolio/<slug>/ is empty. */
   cover: string;
 };
+
+export type Platform = "web" | "mobile";
 
 export type Shot = {
   src: string;
   width: number;
   height: number;
+  platform: Platform;
 };
 
 export type ProjectWithShots = Project & {
@@ -57,6 +62,7 @@ export const projects: Project[] = [
     stack: ["Next.js 15", "Supabase", "OpenAI", "Tailwind"],
     live: "https://podcasty-v2.vercel.app/",
     coverShot: "04.png",
+    mobileFrom: 14,
     cover: "/portfolio/02.webp",
   },
   {
@@ -70,6 +76,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "AI", "Tailwind"],
     live: "https://loom-ai-web.vercel.app/",
     coverShot: "06.png",
+    mobileFrom: 11,
     cover: "/portfolio/03.webp",
   },
   {
@@ -147,17 +154,24 @@ const readShots = (slug: string): string[] => {
  * with `fill`. `fill` collapses to zero height whenever an ancestor sizes
  * itself from flex or a percentage, which is what blanked the enlarged view.
  */
-const measure = async (src: string): Promise<Shot> => {
+const measure = async (
+  src: string,
+  platform: Platform
+): Promise<Shot> => {
   try {
     const { width, height } = await sharp(
       path.join(process.cwd(), "public", src.replace(/^\//, ""))
     ).metadata();
-    if (width && height) return { src, width, height };
+    if (width && height) return { src, width, height, platform };
   } catch {
     /* unreadable — fall back to a sane 3:2 */
   }
-  return { src, width: 1600, height: 1067 };
+  return { src, width: 1600, height: 1067, platform };
 };
+
+/** "…/podcasty/14.webp" -> 14, so mobileFrom can split the set by filename. */
+const numberOf = (src: string) =>
+  Number(src.split("/").pop()?.replace(/\.[^.]+$/, "")) || 0;
 
 const hostOf = (project: Project) => {
   const url = project.live ?? project.code;
@@ -174,7 +188,14 @@ export const getProjects = async (): Promise<ProjectWithShots[]> =>
     projects.map(async (project) => {
       const found = readShots(project.slug);
       const shots = await Promise.all(
-        (found.length ? found : [project.cover]).map(measure)
+        (found.length ? found : [project.cover]).map((src) =>
+          measure(
+            src,
+            project.mobileFrom && numberOf(src) >= project.mobileFrom
+              ? "mobile"
+              : "web"
+          )
+        )
       );
       // coverShot is written as "03.png" but the file served is "03.webp",
       // so match on the stem rather than the full filename.

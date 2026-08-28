@@ -2,9 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Portal from "@/components/portal";
-import type { Shot } from "@/lib/portfolio";
+import type { Platform, Shot } from "@/lib/portfolio";
 
 type Props = {
   open: boolean;
@@ -42,9 +42,38 @@ const Lightbox = ({
   const thumbsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const stripRef = useRef<HTMLDivElement>(null);
 
+  const [filter, setFilter] = useState<Platform | "all">("all");
+
+  const webCount = useMemo(
+    () => shots.filter((s) => s.platform === "web").length,
+    [shots]
+  );
+  const mixed = webCount > 0 && webCount < shots.length;
+
+  /** The subset on show; `index` still addresses the full list. */
+  const visible = useMemo(
+    () =>
+      filter === "all" ? shots : shots.filter((s) => s.platform === filter),
+    [shots, filter]
+  );
+
+  const pos = visible.findIndex((s) => s.src === shot?.src);
+
+  // Switching filter while on a shot the new filter hides would strand the
+  // viewer on a blank stage, so land on the first of the new set instead.
+  useEffect(() => {
+    if (pos !== -1 || !visible.length) return;
+    onIndexChange(shots.indexOf(visible[0]));
+  }, [pos, visible, shots, onIndexChange]);
+
   const go = useCallback(
-    (delta: number) => onIndexChange((index + delta + total) % total),
-    [index, total, onIndexChange]
+    (delta: number) => {
+      if (!visible.length) return;
+      const at = visible.findIndex((s) => s.src === shot?.src);
+      const next = visible[(at + delta + visible.length) % visible.length];
+      onIndexChange(shots.indexOf(next));
+    },
+    [visible, shot, shots, onIndexChange]
   );
 
   // Keyboard: arrows navigate, Esc closes.
@@ -86,14 +115,14 @@ const Lightbox = ({
   // Scroll the strip itself rather than scrollIntoView, which can drag
   // ancestors along with it.
   useEffect(() => {
-    const thumb = thumbsRef.current[index];
+    const thumb = thumbsRef.current[pos];
     const strip = stripRef.current;
     if (!thumb || !strip) return;
     strip.scrollTo({
       left: thumb.offsetLeft - strip.clientWidth / 2 + thumb.clientWidth / 2,
       behavior: "smooth",
     });
-  }, [index]);
+  }, [pos]);
 
   return (
     <Portal>
@@ -122,13 +151,42 @@ const Lightbox = ({
                 Gallery
               </span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
+              {/* Only projects that ship both surfaces get the switch. */}
+              {mixed && (
+                <div className="flex items-center gap-0.5 rounded-full bg-white/[0.06] p-0.5 ring-1 ring-white/10">
+                  {(
+                    [
+                      ["all", `All ${shots.length}`],
+                      ["web", `Web ${webCount}`],
+                      ["mobile", `App ${shots.length - webCount}`],
+                    ] as const
+                  ).map(([key, label]) => (
+                    <button
+                      key={key}
+                      onClick={() => setFilter(key)}
+                      className={`rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition md:text-[11px] ${
+                        filter === key
+                          ? "text-[#08080c]"
+                          : "text-white/50 hover:text-white"
+                      }`}
+                      style={
+                        filter === key
+                          ? { backgroundColor: accent }
+                          : undefined
+                      }>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <span className="font-mono text-xs tabular-nums text-white/45">
                 <span style={{ color: accent }}>
-                  {String(index + 1).padStart(2, "0")}
+                  {String(pos + 1).padStart(2, "0")}
                 </span>
                 <span className="mx-1 text-white/25">/</span>
-                {String(total).padStart(2, "0")}
+                {String(visible.length).padStart(2, "0")}
               </span>
               <button
                 onClick={onClose}
@@ -205,21 +263,21 @@ const Lightbox = ({
                   justify-center alone would clip on the left. */}
               <div ref={stripRef} className="no-scrollbar overflow-x-auto">
                 <div className="mx-auto flex w-max gap-2">
-                {shots.map((shot, i) => (
+                {visible.map((shot, i) => (
                   <button
                     key={shot.src}
                     ref={(el) => {
                       thumbsRef.current[i] = el;
                     }}
-                    onClick={() => onIndexChange(i)}
+                    onClick={() => onIndexChange(shots.indexOf(shot))}
                     aria-label={`Go to screenshot ${i + 1}`}
                     className={`relative h-10 w-16 shrink-0 overflow-hidden rounded transition md:h-12 md:w-[76px] ${
-                      i === index
+                      i === pos
                         ? "opacity-100"
                         : "opacity-35 hover:opacity-75"
                     }`}
                     style={
-                      i === index
+                      i === pos
                         ? { boxShadow: `0 0 0 2px ${accent}` }
                         : undefined
                     }>
