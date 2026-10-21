@@ -112,14 +112,14 @@ const AboutClient = ({ cvHref }: { cvHref: string | null }) => {
 
             <Reveal root={containerRef} delay={0.1}>
               <p className="max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
-                As an expert MERN stack developer, I can help transform your
-                ideas into outstanding web applications with clean and efficient
-                code. I believe that simplicity drives both performance and
-                clarity. I am a dedicated professional with a proven ability to
-                thrive in self-starting environments and collaborate effectively
-                with other developers. My passion for web development and
-                personal growth fuels my commitment to delivering high-quality
-                work.
+                I&apos;m a Full-Stack Developer who builds modern, reliable web
+                applications from end to end, from intuitive user interfaces
+                to scalable back-end services. I work with both relational and
+                NoSQL databases, including PostgreSQL, MongoDB, Supabase, and
+                Firebase, and choose the right data model and tools for each
+                project. I value clean, maintainable code, thoughtful
+                problem-solving, and effective collaboration, and I&apos;m
+                always learning to deliver better digital experiences.
               </p>
             </Reveal>
 
