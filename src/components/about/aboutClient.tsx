@@ -51,10 +51,16 @@ const EXPERIENCE = [
     company: "Freelance",
   },
   {
-    title: "Full-Stack Web Developer",
-    desc: "Building web applications end to end for Upwork clients and local projects, from the user interface to back-end services and databases.",
+    title: "Full-Stack Web Developer (Freelancer)",
+    desc: "Building web applications end to end for German clients, from the user interface to back-end services and databases.",
     date: "2022 - Present",
-    company: "Upwork · Local projects",
+    company: "Upwork · German clients",
+  },
+  {
+    title: "Full-Stack Web Developer",
+    desc: "Delivering web projects for companies in Saudi Arabia, from the user interface to back-end services and databases.",
+    date: "2022 - Present",
+    company: "Saudi companies",
   },
   {
     title: "Reactjs Engineer",
@@ -66,7 +72,7 @@ const EXPERIENCE = [
     title: "Problem Solver",
     desc: "Practicing problem solving on programming problems with c++.",
     date: "2020 - 2022",
-    company: "Coach Academy",
+    company: "Coach Academy · Egypt",
   },
 ];
 
