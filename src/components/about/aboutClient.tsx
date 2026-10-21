@@ -33,6 +33,18 @@ const SKILLS = [
 
 const EXPERIENCE = [
   {
+    title: "Payments Engineer",
+    desc: "Building payment flows and integrating payment gateways, with a focus on secure and reliable transactions.",
+    date: "2025 - Present",
+    company: "Maya Tech · French company in Dubai",
+  },
+  {
+    title: "AI Products Developer",
+    desc: "Building AI-powered web apps for image generation and conversational chat experiences, similar to ChatGPT.",
+    date: "2025 - Present",
+    company: "Maya Tech · French company in Dubai",
+  },
+  {
     title: "Mobile Developer",
     desc: "Building cross-platform mobile apps with Flutter and React Native.",
     date: "2024 - Present",
@@ -40,21 +52,15 @@ const EXPERIENCE = [
   },
   {
     title: "Full-Stack Web Developer",
-    desc: "Building web applications end to end, from the user interface to back-end services and databases.",
-    date: "2022 - 2026",
-    company: "Freelance",
+    desc: "Building web applications end to end for Upwork clients and local projects, from the user interface to back-end services and databases.",
+    date: "2022 - Present",
+    company: "Upwork · Local projects",
   },
   {
     title: "Reactjs Engineer",
     desc: "I spearheaded React-based application development, leveraging advanced skills.",
     date: "2023 - Present",
-    company: "Elite Hair",
-  },
-  {
-    title: "Nextjs Developer (Freelancer)",
-    desc: "Build many projects with nextjs and other technologies.",
-    date: "2022 - 2023",
-    company: "Upwork",
+    company: "Elithair · Germany",
   },
   {
     title: "Problem Solver",
