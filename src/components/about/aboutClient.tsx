@@ -33,6 +33,18 @@ const SKILLS = [
 
 const EXPERIENCE = [
   {
+    title: "Mobile Developer",
+    desc: "Building cross-platform mobile apps with Flutter and React Native.",
+    date: "2024 - Present",
+    company: "Freelance",
+  },
+  {
+    title: "Full-Stack Web Developer",
+    desc: "Building web applications end to end, from the user interface to back-end services and databases.",
+    date: "2022 - 2026",
+    company: "Freelance",
+  },
+  {
     title: "Reactjs Engineer",
     desc: "I spearheaded React-based application development, leveraging advanced skills.",
     date: "2023 - Present",
