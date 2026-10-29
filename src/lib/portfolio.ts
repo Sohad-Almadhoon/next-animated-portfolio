@@ -39,6 +39,19 @@ export type ProjectWithShots = Project & {
 
 export const projects: Project[] = [
   {
+    slug: "learnova",
+    title: "Learnova",
+    accent: "#7FA98C",
+    role: "Full-stack",
+    year: "2026",
+    tagline:
+      "AI tutoring platform for live voice lessons — learners choose a tutor, personalize its voice, and study topics across multiple subjects.",
+    stack: ["Next.js 15", "TypeScript", "Vapi", "Clerk", "Prisma", "Neon"],
+    code: "https://github.com/Sohad-Almadhoon/ai_tutor",
+    coverShot: "01-voice-lesson.png",
+    cover: "/portfolio/01.webp",
+  },
+  {
     slug: "carepulse",
     title: "CarePulse",
     accent: "#4FBFA8",

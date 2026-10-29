@@ -10,6 +10,7 @@ no code change needed.
       fiverr/
       carepulse/
       bookshop/
+      learnova/
 
 Rules:
 - Any of .png .jpg .jpeg .webp .avif .gif
