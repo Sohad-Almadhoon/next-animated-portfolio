@@ -24,3 +24,7 @@ Tips:
 - Capture at 1600x1000 (16:10) so the browser frame crops cleanly
 - Keep each file under ~400 KB (convert to .webp if needed)
 - Order them as a story: landing -> core feature -> dashboard -> checkout -> mobile
+
+Optional project demo videos can be stored in the project's folder and wired
+through the `demoVideo` field in `src/lib/portfolio.ts`. They load only when a
+visitor starts playback.

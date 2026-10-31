@@ -98,6 +98,7 @@ const ProjectPanel = ({
     live,
     code,
     accent,
+    demoVideo,
   } = project;
   const many = shots.length > 1;
 
@@ -108,19 +109,20 @@ const ProjectPanel = ({
   // Opens on the shot picked as the cover, then rolls on from there.
   const [slide, setSlide] = useState(coverIndex);
   const [engaged, setEngaged] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   // Only the panel on screen autoplays — otherwise every reel would be
   // pulling images at once.
   const inView = useInView(sectionRef, { amount: 0.5 });
 
   useEffect(() => {
-    if (!many || !inView || engaged) return;
+    if (!many || !inView || engaged || showVideo) return;
     const id = setInterval(
       () => setSlide((s) => (s + 1) % shots.length),
       AUTOPLAY_MS
     );
     return () => clearInterval(id);
-  }, [many, inView, engaged, shots.length]);
+  }, [many, inView, engaged, showVideo, shots.length]);
 
   // Keep the active thumbnail centred without ever scrolling an ancestor —
   // the page itself is scroll-driven, so a stray scroll would jump the reel.
@@ -136,6 +138,7 @@ const ProjectPanel = ({
 
   const go = (delta: number) => {
     setEngaged(true);
+    setShowVideo(false);
     setSlide((s) => (s + delta + shots.length) % shots.length);
   };
 
@@ -220,7 +223,10 @@ const ProjectPanel = ({
             {many && (
               <button
                 type="button"
-                onClick={() => onOpen(slide)}
+                onClick={() => {
+                  setShowVideo(false);
+                  onOpen(slide);
+                }}
                 className="flex items-center gap-2.5 rounded-full px-5 py-2.5 text-sm font-semibold text-[#0b0b0e] transition hover:brightness-110"
                 style={{
                   backgroundColor: accent,
@@ -228,6 +234,17 @@ const ProjectPanel = ({
                 }}>
                 <ExpandIcon className="h-4 w-4" />
                 View {shots.length} screenshots
+              </button>
+            )}
+            {demoVideo && (
+              <button
+                type="button"
+                onClick={() => {
+                  setEngaged(true);
+                  setShowVideo(true);
+                }}
+                className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition hover:border-white/40 hover:text-white">
+                Watch demo
               </button>
             )}
             {live && (
@@ -263,20 +280,28 @@ const ProjectPanel = ({
             )}
 
             <motion.div
-              role="button"
-              tabIndex={0}
-              onClick={() => onOpen(slide)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onOpen(slide);
-                }
-              }}
+              role={showVideo ? undefined : "button"}
+              tabIndex={showVideo ? undefined : 0}
+              onClick={showVideo ? undefined : () => onOpen(slide)}
+              onKeyDown={
+                showVideo
+                  ? undefined
+                  : (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onOpen(slide);
+                      }
+                    }
+              }
               // Autoplay stops the moment the visitor engages, so they can
               // actually study a screen instead of chasing it.
               onMouseEnter={() => setEngaged(true)}
               onMouseLeave={() => setEngaged(false)}
-              aria-label={`Open ${title} gallery, ${shots.length} screenshots`}
+              aria-label={
+                showVideo
+                  ? undefined
+                  : `Open ${title} gallery, ${shots.length} screenshots`
+              }
               whileHover={{ scale: 1.012 }}
               transition={{ type: "spring", stiffness: 220, damping: 24 }}
               className="group relative block w-full cursor-pointer overflow-hidden rounded-xl bg-black/40 ring-1 ring-white/10 shadow-[0_45px_100px_-35px_rgba(0,0,0,1)]">
@@ -284,39 +309,63 @@ const ProjectPanel = ({
                   mat instead of a second browser frame, and object-contain
                   keeps every composition intact whatever its ratio */}
               <div className="relative aspect-[16/10] w-full md:aspect-[3/2]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={shots[slide].src}
-                    className="absolute inset-0"
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.45, ease: "easeOut" }}>
-                    <Image
-                      src={shots[slide].src}
-                      alt={`${title} screenshot ${slide + 1}`}
-                      fill
-                      sizes="(max-width: 1024px) 92vw, 760px"
-                      priority={eager && slide === coverIndex}
-                      className="object-contain"
-                    />
-                  </motion.div>
-                </AnimatePresence>
+                {showVideo && demoVideo ? (
+                  <>
+                    <video
+                      key={demoVideo}
+                      controls
+                      playsInline
+                      preload="none"
+                      poster={shots[coverIndex]?.src}
+                      aria-label={`${title} demo video`}
+                      className="absolute inset-0 h-full w-full object-contain">
+                      <source src={demoVideo} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    <button
+                      type="button"
+                      onClick={() => setShowVideo(false)}
+                      className="absolute left-3 top-3 z-10 rounded-full bg-[#0b0b0e]/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-[#0b0b0e]">
+                      Back to screenshots
+                    </button>
+                  </>
+                ) : (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={shots[slide].src}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, scale: 1.02 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.45, ease: "easeOut" }}>
+                      <Image
+                        src={shots[slide].src}
+                        alt={`${title} screenshot ${slide + 1}`}
+                        fill
+                        sizes="(max-width: 1024px) 92vw, 760px"
+                        priority={eager && slide === coverIndex}
+                        className="object-contain"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                )}
 
                 {/* hover affordance */}
-                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0b0b0e]/55 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
-                  <span
-                    className="flex h-12 w-12 items-center justify-center rounded-full text-[#0b0b0e]"
-                    style={{ backgroundColor: accent }}>
-                    <ExpandIcon className="h-5 w-5" />
-                  </span>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white">
-                    {many ? `Browse ${shots.length} screens` : "Enlarge"}
-                  </span>
-                </div>
+                {!showVideo && (
+                  <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0b0b0e]/55 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+                    <span
+                      className="flex h-12 w-12 items-center justify-center rounded-full text-[#0b0b0e]"
+                      style={{ backgroundColor: accent }}>
+                      <ExpandIcon className="h-5 w-5" />
+                    </span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white">
+                      {many ? `Browse ${shots.length} screens` : "Enlarge"}
+                    </span>
+                  </div>
+                )}
 
                 {/* autoplay bar */}
-                {many && (
+                {many && !showVideo && (
                   <div className="absolute inset-x-0 bottom-0 h-[3px] bg-white/10">
                     <motion.div
                       key={`${slide}-${engaged}`}
@@ -334,7 +383,7 @@ const ProjectPanel = ({
               </div>
 
               {/* slider controls */}
-              {many && (
+              {many && !showVideo && (
                 <>
                   <button
                     type="button"
@@ -384,6 +433,7 @@ const ProjectPanel = ({
                     type="button"
                     onClick={() => {
                       setEngaged(true);
+                      setShowVideo(false);
                       setSlide(i);
                     }}
                     onDoubleClick={() => onOpen(i)}

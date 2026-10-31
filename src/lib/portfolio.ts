@@ -14,6 +14,8 @@ export type Project = {
   code?: string;
   /** File inside the project folder that opens the slider (defaults to the first). */
   coverShot?: string;
+  /** Optional video demo served from public/. */
+  demoVideo?: string;
   /** First screenshot number that shows the mobile app; earlier ones are web. */
   mobileFrom?: number;
   /** Used only when public/portfolio/<slug>/ is empty. */
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     stack: ["Next.js 15", "TypeScript", "Vapi", "Clerk", "Prisma", "Neon"],
     code: "https://github.com/Sohad-Almadhoon/ai_tutor",
     coverShot: "01-voice-lesson.png",
+    demoVideo: "/portfolio/learnova/ai_tutor.mp4",
     cover: "/portfolio/01.webp",
   },
   {
